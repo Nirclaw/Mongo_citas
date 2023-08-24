@@ -1,0 +1,233 @@
+//1. Obtener todos los pacientes alfabéticamente
+use("Mongo_Citas");
+db.usuario.aggregate([
+  {
+    $sort: { usu_nombre_completo: 1 }, // 1 para orden ascendente, -1 para descendente
+  },
+  {
+    $project: {
+      _id: 0,
+    },
+  },
+]);
+
+//2. Obtener todas las citas alfabéticamente
+use("Mongo_Citas");
+db.cita.aggregate([
+  {
+    $sort: { cit_estadoCita: 1 }, // 1 para orden ascendente, -1 para descendente
+  },
+  {
+    $project: {
+      _id: 0,
+    },
+  },
+]);
+
+//3. Obtener todos los médicos de una especialidad específica (por ejemplo, **'Cardiología'**):
+use("Mongo_Citas");
+db.medico.aggregate([
+  {
+    $match: {
+      med_especialidad: /Cardiología/,
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+    },
+  },
+]);
+
+//4. Encontrar la próxima cita para un paciente específico (por ejemplo, el paciente con **usu_id 1**):
+
+use("Mongo_Citas");
+db.cita.aggregate([
+  {
+    $match: {
+      cit_datosUsuario: 98765432,
+    },
+  },
+  {
+    $sort: {
+      cit_fecha: -1,
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+    },
+  },
+]);
+//5. Encontrar todos los pacientes que tienen citas con un médico específico (por ejemplo, el médico con **med_nroMatriculaProsional 1**)
+
+use("Mongo_Citas");
+db.cita.aggregate([
+  {
+    $match: {
+      cit_medico: 567890,
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+    },
+  },
+]);
+
+//6. Obtener las consultorías para un paciente específico (por ejemplo, paciente **con usu_id 1**)
+use("Mongo_Citas");
+db.cita.aggregate([
+  {
+    $lookup: {
+      from: "medico",
+      localField: "cit_medico",
+      foreignField: "med_nroMatriculaProfesional",
+      as: "datos",
+    },
+  },
+  {
+    $match: {
+      cit_datosUsuario: 99887766,
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      "datos._id": 0,
+      "datos.med_nroMatriculaProfesional": 0,
+      "datos.med_nombrCompleto": 0,
+      "datos.med_especialidad": 0,
+    },
+  },
+]);
+
+//7. Encontrar todas las citas para un día específico (por ejemplo, **'2023-07-12'**)
+use("Mongo_Citas");
+db.cita.aggregate([
+  {
+    $match: {
+      cit_fecha: /2023-08-25/,
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+    },
+  },
+]);
+
+//8. Obtener los médicos y sus consultorios
+
+use("Mongo_Citas");
+db.medico.aggregate([
+  {
+    $project: {
+      _id: 0,
+    },
+  },
+]);
+//9. Contar el número de citas que un médico tiene en un día específico
+//(por ejemplo, el médico con **med_nroMatriculaProsional 1 en '2023-07-12'**)
+use("Mongo_Citas");
+db.cita.aggregate([
+  {
+    $match: {
+      cit_medico: 789012,
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+    },
+  },
+]);
+
+//10. Obtener los consultorio donde se aplicó las citas de un paciente
+use("Mongo_Citas");
+db.usuario.aggregate([
+  {
+    $match: {
+      "usu_documento.numero": 98765432,
+    },
+  },
+  {
+    $lookup: {
+      from: "cita",
+      localField: "usu_documento.numero",
+      foreignField: "cit_datosUsuario",
+      as: "citas_total_paciente",
+    },
+  },
+  {
+    $lookup: {
+      from: "medico",
+      localField: "citas_total_paciente.cit_medico",
+      foreignField: "med_nroMatriculaProfesional",
+      as: "consultorio",
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      usu_acudiente: 0,
+      citas_total_paciente: 0,
+      "consultorio._id": 0,
+      "consultorio.med_nroMatriculaProfesional": 0,
+      "consultorio.med_nombrCompleto": 0,
+      "consultorio.med_especialidad": 0,
+    },
+  },
+]);
+
+//11. Obtener todas las citas realizadas por los pacientes de un genero si su estado de la cita fue atendidad
+use("Mongo_Citas");
+db.usuario.aggregate([
+  {
+    $match: {
+      usu_genero: "F",
+    },
+  },
+  {
+    $lookup: {
+      from: "cita",
+      localField: "usu_documento.numero",
+      foreignField: "cit_datosUsuario",
+      as: "result",
+    },
+  },
+  {
+    $match: {
+      "result.cit_estadoCita": "Confirmada",
+    },
+  },
+  {
+    $project: {
+      _id: 0,
+      usu_acudiente: 0,
+      "result._id": 0,
+    },
+  },
+]);
+
+
+//12. Insertar un paciente a la tabla usuario pero si es menor de 
+//edad solicitar primero que ingrese el acudiente y validar si ya estaba registrado el acudiente.
+
+//13. Mostrar todas las citas que fueron rechazadas y en un mes específico, \
+//mostrar la fecha de la cita, el nombre del usuario y el médico.
+
+use("Mongo_Citas");
+db.cita.aggregate(
+    [
+        {
+            $match: {
+              $and:[  {cit_fecha:/2023-08/},{cit_estadoCita:"Confirmada"}] 
+            }
+        },{
+            $project: {
+                _id:0
+            }
+        }
+    ]
+)

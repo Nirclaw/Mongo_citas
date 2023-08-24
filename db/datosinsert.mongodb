@@ -1,0 +1,139 @@
+use("Mongo_Citas");
+db.usuario.insertMany([
+  {
+    usu_nombre_completo: "Ana Gómez",
+    usu_telefono: "5551234567",
+    usu_direccion: "Avenida 456, Pueblo",
+    usu_email: "ana@example.com",
+    usu_documento: {
+      tipo_doc: "TI",
+      numero: 98765432,
+    },
+    usu_genero: "F",
+    usu_acudiente: {
+      acu_cedula: 54321678,
+      acu_nombre_completo: "Pedro Acudiente",
+      acu_telefono: "5678901234",
+      acu_direccion: "Calle Secundaria, Pueblo",
+    },
+  },
+  {
+    usu_nombre_completo: "Carlos Ramírez",
+    usu_telefono: "9995555555",
+    usu_direccion: "Carrera 789, Villa",
+    usu_email: "carlos@example.com",
+    usu_documento: {
+      tipo_doc: "PP",
+      numero: 11223344,
+    },
+    usu_genero: "M",
+    usu_acudiente: {
+      acu_cedula: 99887766,
+      acu_nombre_completo: "Luis Acudiente",
+      acu_telefono: "1239874560",
+      acu_direccion: "Avenida Principal, Villa",
+    },
+  },
+  {
+    usu_nombre_completo: "María López",
+    usu_telefono: "7778889999",
+    usu_direccion: "Calle 789, Ciudad",
+    usu_email: "maria@example.com",
+    usu_documento: {
+      tipo_doc: "CC",
+      numero: 55443322,
+    },
+    usu_genero: "F",
+    usu_acudiente: {
+      acu_cedula: 66554433,
+      acu_nombre_completo: "Javier Acudiente",
+      acu_telefono: "8877665544",
+      acu_direccion: "Carrera Principal, Ciudad",
+    },
+  },
+  {
+    usu_nombre_completo: "Andrés Pérez",
+    usu_telefono: "3334445555",
+    usu_direccion: "Avenida 567, Pueblo",
+    usu_email: "andres@example.com",
+    usu_documento: {
+      tipo_doc: "TI",
+      numero: 99887766,
+    },
+    usu_genero: "M",
+    usu_acudiente: {
+      acu_cedula: 11223344,
+      acu_nombre_completo: "Laura Acudiente",
+      acu_telefono: "4433221100",
+      acu_direccion: "Calle Central, Pueblo",
+    },
+  },
+]);
+
+use("Mongo_Citas");
+
+db.medico.insertMany([
+  {
+    med_nroMatriculaProfesional: 123456,
+    med_nombrCompleto: "Dr. Juan Pérez",
+    med_consultorio: "Consultorio 101",
+    med_especialidad: "Medicina General",
+  },
+  {
+    med_nroMatriculaProfesional: 789012,
+    med_nombrCompleto: "Dra. Ana Gómez",
+    med_consultorio: "Consultorio 202",
+    med_especialidad: "Pediatría",
+  },
+  {
+    med_nroMatriculaProfesional: 345678,
+    med_nombrCompleto: "Dr. Carlos Ramírez",
+    med_consultorio: "Consultorio 303",
+    med_especialidad: "Cardiología",
+  },
+  {
+    med_nroMatriculaProfesional: 901234,
+    med_nombrCompleto: "Dra. María López",
+    med_consultorio: "Consultorio 404",
+    med_especialidad: "Dermatología",
+  },
+  {
+    med_nroMatriculaProfesional: 567890,
+    med_nombrCompleto: "Dr. Andrés Pérez",
+    med_consultorio: "Consultorio 505",
+    med_especialidad: "Ortopedia",
+  },
+]);
+
+use("Mongo_Citas");
+
+db.cita.insertMany([
+  {
+    cit_codigo: 1,
+    cit_fecha: "2023-08-25",
+    cit_estadoCita: "Confirmada",
+    cit_medico: 567890, // Reemplaza con el nroMatriculaProfesional real
+    cit_datosUsuario: 99887766, // R
+  },
+   {
+    cit_codigo: 2,
+    cit_fecha: "2023-08-25",
+    cit_estadoCita: "Activa",
+    cit_medico: 345678, // Reemplaza con el nroMatriculaProfesional real
+    cit_datosUsuario: 55443322, // R
+  },
+   {
+    cit_codigo: 3,
+    cit_fecha: "2023-08-25",
+    cit_estadoCita: "Activa",
+    cit_medico: 789012, // Reemplaza con el nroMatriculaProfesional real
+    cit_datosUsuario: 11223344, // R
+  },
+   {
+    cit_codigo: 4,
+    cit_fecha: "2023-08-25",
+    cit_estadoCita: "Confirmada",
+    cit_medico: 567890, // Reemplaza con el nroMatriculaProfesional real
+    cit_datosUsuario: 98765432, // R
+  },
+]);
