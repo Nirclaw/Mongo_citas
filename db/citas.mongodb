@@ -1,0 +1,146 @@
+use("Mongo_Citas");
+db.createCollection("usuario", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "usuarios",
+      required: [
+        "usu_nombre_completo",
+        "usu_telefono",
+        "usu_direccion",
+        "usu_email",
+        "usu_documento",
+        "usu_genero",
+        "usu_acudiente",
+      ],
+      properties: {
+        usu_nombre_completo: {
+          bsonType: "string",
+          description: "el tipo de dato es incorrecto",
+        },
+        usu_telefono: {
+          bsonType: "string",
+          description: "el tipo de dato es incorrecto",
+        },
+        usu_direccion: {
+          bsonType: "string",
+          description: "el tipo de dato es incorrecto",
+        },
+        usu_email: {
+          bsonType: "string",
+          description: "el tipo de dato es incorrecto",
+        },
+        usu_documento: {
+          bsonType: "object",
+          required: ["tipo_doc", "numero"],
+          properties: {
+            tipo_doc: {
+              enum: ["CC", "TI", "PP"],
+              description: "los tipos de documentos deben ser CC, TI, PP ",
+            },
+            numero: {
+              bsonType: "int",
+              description: "el tipo de dato es incorrecto",
+            },
+          },
+        },
+        usu_genero: {
+          enum: ["M", "F", "NI"],
+        },
+        usu_acudiente: {
+          bsonType: "object",
+          required: [
+            "acu_cedula",
+            "acu_nombre_completo",
+            "acu_telefono",
+            "acu_direccion",
+          ],
+          properties: {
+            acu_cedula: {
+              bsonType: "int",
+              description: "el tipo de dato es incorrecto",
+            },
+            acu_nombre_completo: {
+              bsonType: "string",
+              description: "el tipo de dato es incorrecto",
+            },
+            acu_telefono: {
+              bsonType: "string",
+              description: "el tipo de dato es incorrecto",
+            },
+            acu_direccion: {
+              bsonType: "string",
+              description: "el tipo de dato es incorrecto",
+            },
+          },
+        },
+      },
+    },
+  },
+});
+
+use("Mongo_Citas");
+db.createCollection("cita", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "citas",
+      required: [
+        "cit_codigo",
+        "cit_fecha",
+        "cit_estadoCita",
+        "cit_medico",
+        "cit_datosUsuario",
+      ],
+      properties: {
+        cit_codigo: {
+          bsonType: "int",
+          description: "el tipo de dato es incorrecto",
+        },
+        cit_fecha: {
+          bsonType: "string",
+          description: "el tipo de dato es incorrecto",
+        },
+        cit_estadoCita: {
+          enum: [
+            "Activa",
+            "Espera",
+            "Cancelada",
+            "Confirmada",
+            "Completada",
+            "Reprogramada",
+            "Atrasada",
+            "No-asistio",
+            "Reservada",
+          ],
+          description:
+            "Activa,Enespera,Cancelada,Confirmada,Completada,Reprogramada,Atrasada,No asistió,Reservada",
+        },
+        cit_medico: {
+          bsonType: "int",
+          description: "el tipo de dato no es correcto",
+        },
+        cit_datosUsuario: {
+          bsonType: "int",
+          description: "el tipo de dato no es correcto",
+        },
+      },
+    },
+  },
+});
+
+
+use("Mongo_Citas");
+db.createCollection("medico",{
+    validator:{
+        $jsonSchema:{
+            bsonType:"object",
+            
+        }
+    }
+})
+
+
+
+
+
