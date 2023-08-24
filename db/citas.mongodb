@@ -129,18 +129,36 @@ db.createCollection("cita", {
   },
 });
 
-
 use("Mongo_Citas");
-db.createCollection("medico",{
-    validator:{
-        $jsonSchema:{
-            bsonType:"object",
-            
-        }
-    }
-})
-
-
-
-
-
+db.createCollection("medico", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "medicos",
+      required: [
+        "med_nroMatriculaProfesional",
+        "med_nombrCompleto",
+        "med_consultorio",
+        "med_especialidad",
+      ],
+      properties: {
+        med_nroMatriculaProfesional: {
+          bsonType: "int",
+          description: "el tipo de dato es incorrecto",
+        },
+        med_nombrCompleto: {
+          bsonType: "string",
+          description: "el tipo de dato es incorrecto",
+        },
+        med_consultorio: {
+          bsonType: "string",
+          description: "el tipo de dato es incorrecto",
+        },
+        med_especialidad: {
+          bsonType: "string",
+          description: "el tipo de dato es incorrecto",
+        },
+      },
+    },
+  },
+});
