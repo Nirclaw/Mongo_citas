@@ -78,30 +78,55 @@ db.medico.insertMany([
     med_nombrCompleto: "Dr. Juan Pérez",
     med_consultorio: "Consultorio 101",
     med_especialidad: "Medicina General",
+    rol: "admin",
+    permisos: {
+      "/usuario": ["1.0.0"],
+    },
+    password: "123456789",
   },
   {
     med_nroMatriculaProfesional: 789012,
     med_nombrCompleto: "Dra. Ana Gómez",
     med_consultorio: "Consultorio 202",
     med_especialidad: "Pediatría",
+    rol: "admin",
+    permisos: {
+      "/usuario": ["1.0.0"],
+    },
+    password: "123456789",
   },
   {
     med_nroMatriculaProfesional: 345678,
     med_nombrCompleto: "Dr. Carlos Ramírez",
     med_consultorio: "Consultorio 303",
     med_especialidad: "Cardiología",
+    rol: "admin",
+    permisos: {
+      "/usuario": ["1.0.0"],
+    },
+    password: "123456789",
   },
   {
     med_nroMatriculaProfesional: 901234,
     med_nombrCompleto: "Dra. María López",
     med_consultorio: "Consultorio 404",
     med_especialidad: "Dermatología",
+    rol: "admin",
+    permisos: {
+      "/usuario": ["1.0.0"],
+    },
+    password: "123456789",
   },
   {
     med_nroMatriculaProfesional: 567890,
     med_nombrCompleto: "Dr. Andrés Pérez",
     med_consultorio: "Consultorio 505",
     med_especialidad: "Ortopedia",
+    rol: "admin",
+    permisos: {
+      "/usuario": ["1.0.0"],
+    },
+    password: "123456789",
   },
 ]);
 
@@ -115,21 +140,21 @@ db.cita.insertMany([
     cit_medico: 567890, // Reemplaza con el nroMatriculaProfesional real
     cit_datosUsuario: 99887766, // R
   },
-   {
+  {
     cit_codigo: 2,
     cit_fecha: "2023-08-25",
     cit_estadoCita: "Activa",
     cit_medico: 345678, // Reemplaza con el nroMatriculaProfesional real
     cit_datosUsuario: 55443322, // R
   },
-   {
+  {
     cit_codigo: 3,
     cit_fecha: "2023-08-25",
     cit_estadoCita: "Activa",
     cit_medico: 789012, // Reemplaza con el nroMatriculaProfesional real
     cit_datosUsuario: 11223344, // R
   },
-   {
+  {
     cit_codigo: 4,
     cit_fecha: "2023-08-25",
     cit_estadoCita: "Confirmada",

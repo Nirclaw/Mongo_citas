@@ -140,11 +140,14 @@ db.createCollection("medico", {
         "med_nombrCompleto",
         "med_consultorio",
         "med_especialidad",
+        "rol",
+        "permisos",
+        "password",
       ],
       properties: {
         med_nroMatriculaProfesional: {
           bsonType: "int",
-          description: "el tipo de dato es incorrecto",
+          description: "el tipo   de dato es incorrecto",
         },
         med_nombrCompleto: {
           bsonType: "string",
@@ -157,6 +160,27 @@ db.createCollection("medico", {
         med_especialidad: {
           bsonType: "string",
           description: "el tipo de dato es incorrecto",
+        },
+        rol: {
+          enum: ["admin", "user", "root"],
+          description:"debe escoger un rol entre admin,user,root"
+        },
+        permisos: {
+          bsonType: "object",
+          description: "ingrese los persmisos",
+          properties: {
+            "/usuario": {
+              bsonType: "array",
+              items: {
+                bsonType: "string",
+                description: "ingrese la version a autirizar",
+              },
+            },
+          },
+        },
+        password: {
+          bsonType: "string",
+          description: "contrasena no es valida",
         },
       },
     },
