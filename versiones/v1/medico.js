@@ -11,6 +11,9 @@ export const medicos = async (req, res) => {
         {
           $project: {
             _id: 0,
+            rol:0,
+            permisos:0,
+            password:0
           },
         },
       ]).toArray();
