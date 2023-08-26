@@ -161,9 +161,35 @@ db.createCollection("medico", {
           bsonType: "string",
           description: "el tipo de dato es incorrecto",
         },
+        
+        password: {
+          bsonType: "string",
+          description: "contrasena no es valida",
+        },
+      },
+    },
+  },
+});
+
+use("Mongo_Citas");
+db.createCollection("roles", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "roles",
+      required: ["user", "password","rol","permisos"],
+      properties: {
+        user: {
+          bsonType: "string",
+          description: "el tipo de dato es incorrecto",
+        },
+        password: {
+          bsonType: "string",
+          description: "el tipo de dato es incorrecto",
+        },
         rol: {
-          enum: ["admin", "user", "root"],
-          description:"debe escoger un rol entre admin,user,root"
+          enum: ["admin", "user"],
+          description: "debe escoger un rol entre admin,user,root",
         },
         permisos: {
           bsonType: "object",
@@ -177,10 +203,6 @@ db.createCollection("medico", {
               },
             },
           },
-        },
-        password: {
-          bsonType: "string",
-          description: "contrasena no es valida",
         },
       },
     },

@@ -1,29 +1,25 @@
 import { Router } from "express";
-import { mongo } from "../conexion/mongo.js";
 import { limit } from "../middleware/limit.js";
-
+import Passport from "../cript/pasporthelp.js";
+import { citasGenero, consultorioPaciente, userv2 } from "../versiones/v1/userv2.js";
+import { version } from "../config/variables.js";
 const appUsuario = Router();
-let db = await mongo();
 
-appUsuario.get("/", limit(), async (req, res) => {
-  try {
-    let user = db.collection("usuario");
-    let data = await user
-      .aggregate([
-        {
-          $sort: { usu_nombre_completo: 1 }, // 1 para orden ascendente, -1 para descendente
-        },
-        {
-          $project: {
-            _id: 0,
-          },
-        },
-      ])
-      .toArray();
-    res.send(data);
-  } catch (error) {
-    res.status(400).send(error);
-  }
-});
+
+appUsuario.use(limit(), Passport.authenticate("bearer", { session: false }));
+
+appUsuario.get("/",version({
+  "1.0.0":userv2,
+}))
+
+appUsuario.get("/consultoriospaciente/:id",version({
+  "1.0.0":consultorioPaciente
+}))
+
+appUsuario.get("/citasGenero/:genero",version({
+  "1.0.0":citasGenero
+}))
+
+
 
 export default appUsuario;

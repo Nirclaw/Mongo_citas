@@ -1,3 +1,5 @@
+import { ObjectId } from "mongodb";
+
 //1. Obtener todos los pacientes alfabéticamente
 use("Mongo_Citas");
 db.usuario.aggregate([
@@ -133,7 +135,7 @@ use("Mongo_Citas");
 db.cita.aggregate([
   {
     $match: {
-      cit_medico: 789012,
+      $and:[{cit_medico: 789012},{cit_fecha:/2023-08-25/}]
     },
   },
   {
@@ -231,3 +233,23 @@ db.cita.aggregate(
         }
     ]
 )
+use("Mongo_Citas");
+db.roles.aggregate([
+  {
+    $match: {
+      $and:[{user:"Nicolas"},{password:"123456789"}]
+    }
+  }
+])
+
+
+use("Mongo_Citas")
+db.roles.findOne(
+  {
+   
+      _id:new ObjectId("64e8c75244e4b411c3f7f460"),
+          [`permisos./usuario`]: `${"1.0.0"}`
+    
+  }
+)
+
